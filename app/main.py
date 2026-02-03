@@ -26,12 +26,13 @@ def read_root():
 async def analyze(input_data: ReviewInput):
 
     # Validación básica: que el texto no esté vacío
+    
     if not input_data.text.strip():
 
         raise HTTPException(status_code=400, detail="El campo 'text' no puede estar vacío")
     
     # Llamamos a nuestra lógica de NLP en engine.py
-    
+
     analysis_result = analyze_sentiment(input_data.text)
     
     return {
