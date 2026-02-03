@@ -1,0 +1,1 @@
+Se incluyeron pruebas manuales en engine.py para validar el modelo antes de su integración con el framework web
