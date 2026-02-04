@@ -1,6 +1,6 @@
 # The Smart Feedback API
 
-Esta API sirve para analizar qué onda el feedback que nos dejan los usuarios. Te dice si el comentario es Positivo, Negativo o Neutral, y con qué confianza lo dice. La idea es que Operaciones pueda filtrar rápido los problemas graves.
+Esta API sirve para analizar el feedback que nos dejan los usuarios. Te dice si el comentario es Positivo, Negativo o Neutral, y con qué confianza lo dice. La idea es que Operaciones pueda filtrar rápido los problemas graves.
 
 ## Cómo levantar el proyecto
 
