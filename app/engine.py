@@ -16,10 +16,10 @@ def analyze_sentiment(text: str):
         return {"sentiment": "Neutral", "score": 0.0}
 
     # El modelo devuelve una lista con un diccionario: [{'label': 'POS', 'score': 0.99}]
-
-    result = analyzer(text)[0]
+    # Usamos truncation=True para manejar textos que excedan el límite de tokens
+    result = analyzer(text, truncation=True, max_length=512)[0]
     
-    # Mapeamos las etiquetas del modelo
+    # Mapeo las etiquetas por defecto del modelo
 
     label_map = {
 
@@ -34,21 +34,3 @@ def analyze_sentiment(text: str):
         "score": round(result['score'], 4)
     }
 
-# --- BLOQUE DE PRUEBA  ---
-
-if __name__ == "__main__":
-
-    # Estas pruebas manuales sirven para verificar el motor de NLP de forma aislada
-    
-    print("--- Verificación Manual del Motor de Análisis ---")
-    
-    samples = [
-        "El servicio fue increíble, muy rápido.",
-        "No me gustó para nada, la atención fue pésima.",
-        "Es un producto normal, cumple su función."
-    ]
-    
-    for sample in samples:
-        print(f"Texto: {sample}")
-        print(f"Resultado: {analyze_sentiment(sample)}")
-        print("-" * 20)

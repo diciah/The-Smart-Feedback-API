@@ -1,6 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from app.engine import analyze_sentiment
+from app.utils import load_reviews_from_csv
+
 
 # Inicializamos la aplicación
 
@@ -25,13 +27,13 @@ def read_root():
 @app.post("/analyze")
 async def analyze(input_data: ReviewInput):
 
-    # Validación básica: que el texto no esté vacío
+    # Validamos que el texto no esté vacío antes de procesarlo
     
     if not input_data.text.strip():
 
-        raise HTTPException(status_code=400, detail="El campo 'text' no puede estar vacío")
+        raise HTTPException(status_code=400, detail="El campo 'text' no puede estar vacío.")
     
-    # Llamamos a nuestra lógica de NLP en engine.py
+    # Enviamos el texto al motor de NLP (engine.py) para obtener el análisis
 
     analysis_result = analyze_sentiment(input_data.text)
     
@@ -39,4 +41,26 @@ async def analyze(input_data: ReviewInput):
         "status": "success",
         "input_text": input_data.text,
         "analysis": analysis_result
+    }
+
+@app.post("/analyze/csv")
+def analyze_csv():
+    # Cargamos las reviews desde el CSV
+    texts = load_reviews_from_csv("data/reviews.csv")
+
+    results = []
+
+    for text in texts:
+        # Analizamos cada una
+        analysis = analyze_sentiment(text)
+        results.append({
+            "text": text,
+            "sentiment": analysis["sentiment"],
+            "score": analysis["score"]
+        })
+
+    return {
+        "total_rows": len(texts),
+        "processed": len(results),
+        "results": results
     }
