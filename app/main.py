@@ -49,18 +49,32 @@ def analyze_csv():
     texts = load_reviews_from_csv("data/reviews.csv")
 
     results = []
+    
+    # Inicializamos contadores para el resumen estadístico
+    stats = {
+        "Positivo": 0,
+        "Negativo": 0,
+        "Neutral": 0
+    }
 
     for text in texts:
         # Analizamos cada una
         analysis = analyze_sentiment(text)
+        
+        # Actualizamos el contador correspondiente
+        sentiment = analysis["sentiment"]
+        if sentiment in stats:
+            stats[sentiment] += 1
+            
         results.append({
             "text": text,
-            "sentiment": analysis["sentiment"],
+            "sentiment": sentiment,
             "score": analysis["score"]
         })
 
     return {
         "total_rows": len(texts),
         "processed": len(results),
+        "summary": stats,
         "results": results
     }

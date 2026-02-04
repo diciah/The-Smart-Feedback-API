@@ -47,7 +47,20 @@ Lo más fácil es ir directamente a `http://127.0.0.1:8000/docs`. Ahí tenés el
     }
     ```
 
--   **POST /analyze/csv**: Este lee directo el archivo `data/reviews.csv` y procesa todo junto. Ideal para analizar lotes grandes de una.
+-   **POST /analyze/csv**: Este lee directo el archivo `data/reviews.csv`, procesa todo y te devuelve un resumen estadístico junto con el detalle.
+    *Respuesta de ejemplo:*
+    ```json
+    {
+      "total_rows": 50,
+      "processed": 50,
+      "summary": {
+        "Positivo": 20,
+        "Negativo": 25,
+        "Neutral": 5
+      },
+      "results": [...]
+    }
+    ```
 
 ## Estructura del proyecto
 

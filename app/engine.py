@@ -16,8 +16,8 @@ def analyze_sentiment(text: str):
         return {"sentiment": "Neutral", "score": 0.0}
 
     # El modelo devuelve una lista con un diccionario: [{'label': 'POS', 'score': 0.99}]
-    # Usamos truncation=True para manejar textos que excedan el límite de tokens
-    result = analyzer(text, truncation=True, max_length=512)[0]
+    # Usamos truncation=True para manejar textos que excedan el límite de tokens (128 para este modelo)
+    result = analyzer(text, truncation=True, max_length=128)[0]
     
     # Mapeo las etiquetas por defecto del modelo
 
